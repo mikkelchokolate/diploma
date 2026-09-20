@@ -7,12 +7,23 @@ class Mode(Enum):
     AUTO = 1
     ALARM = 2
 
+class AlarmCode(Enum):
+    NONE = 0
+    OVERFLOW = 1
+    HEATER = 2
+
+class Alarm:
+    active = False
+    code = AlarmCode.NONE
+
 current = Mode.STOP
 
 def ack():
     global current
     if current == Mode.ALARM:
         current = Mode.STOP
+        Alarm.active = False
+        Alarm.code = AlarmCode.NONE
 
 def step(tank, sp):
 
@@ -22,6 +33,8 @@ def step(tank, sp):
     ## защита
     if tank.level >= tank.maxlevel - tank.overflowlevel:  ## защита
         current = Mode.ALARM
+        Alarm.active = True
+        Alarm.code = AlarmCode.OVERFLOW
 
 
     ## обработка команд

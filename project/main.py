@@ -62,8 +62,18 @@ while True:
 
     ## каждую секунду отправляем значения level и temp, и печатаем в консоль
     if tick % t1.tickrate == 0:
-        MQTT.send("tank/level", new_level) ## отправляем наружу
+        ## отправляем наружу
+        MQTT.send("conn/ok", MQTT.MQTT_OK)
+        MQTT.send("alarm/active", controller.Alarm.active)
+        MQTT.send("alarm/code", controller.Alarm.code.name)
+        MQTT.send("tank/level", new_level)
         MQTT.send("tank/temp", new_temp)
+        MQTT.send("tank/mode", controller.current.name)
+        MQTT.send("pump/run", t1.pump)
+        MQTT.send("heater/run", t1.heater)
+        MQTT.send("valve_out/open", t1.drain)
+        MQTT.send("setpoint/level", sp1.estimated_level)
+        MQTT.send("setpoint/temp", sp1.estimated_temp)
 
         if new_level > old_level:
             Lcolor = C.GREEN

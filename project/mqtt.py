@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 ack_requested = False
 start_requested = False
 stop_requested = False
+MQTT_OK = False
 
 class C:
     RED = "\033[91m"
@@ -13,10 +14,18 @@ class C:
 
 def on_connect(client, userdata, flags, rc, properties):
     if rc == 0:
+        global MQTT_OK
+        MQTT_OK = True
         mqttc.subscribe("cmd/#")
+        # mqttc.subscribe("alarm/#")
         print("Connected to MQTT Broker")
     else:
         print("Failed to connect, return code %d\n", rc)
+
+def on_disconnect(client, userdata, flags, rc, properties):
+    global MQTT_OK
+    MQTT_OK = False
+    print("Disconnected from MQTT Broker")
 
 def on_message(client, userdata, msg):
     payload = msg.payload.decode("utf-8")
@@ -58,6 +67,7 @@ def take_stop():
 
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqttc.on_connect = on_connect
+mqttc.on_disconnect = on_disconnect
 mqttc.on_message = on_message
 
 def start_broker():
