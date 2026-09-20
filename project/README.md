@@ -16,6 +16,7 @@
 
 
 
-
+cd web
+python -m uvicorn app:app --reload
 
 Клавиатура: S пуск, B стоп, A квитирование.

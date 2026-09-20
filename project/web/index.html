@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="connection">?</div>
+    <div class="level">уровень: -- мм</div>
+    <div class="temperature">температура: -- C</div>
+
+<script>
+    function tick() {
+        fetch("/state")
+        .then(function (state_data) {return state_data.json()})
+        .then(function (data) {
+            document.querySelector(".connection").textContent = (data.connection == "True") ? "подключено":"отключено"
+            document.querySelector(".level").textContent = "уровень: " + data.level + " мм"
+            document.querySelector(".temperature").textContent = "температура: " + data.temperature + " C"
+        })
+    }
+    tick()
+    setInterval(tick, 1000)
+</script>
+</body>
+</html>
