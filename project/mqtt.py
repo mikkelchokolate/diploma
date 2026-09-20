@@ -4,6 +4,13 @@ ack_requested = False
 start_requested = False
 stop_requested = False
 
+class C:
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+    RESET = "\033[0m"
+
 def on_connect(client, userdata, flags, rc, properties):
     if rc == 0:
         mqttc.subscribe("cmd/#")
@@ -12,7 +19,8 @@ def on_connect(client, userdata, flags, rc, properties):
         print("Failed to connect, return code %d\n", rc)
 
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+    payload = msg.payload.decode("utf-8")
+    print(f'{C.BLUE}{payload}{C.RESET}')
 
     if msg.topic == "cmd/ack":
         global ack_requested

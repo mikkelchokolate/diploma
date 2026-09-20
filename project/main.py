@@ -1,5 +1,6 @@
 import time
 import msvcrt
+import sys
 
 import mqtt as MQTT
 import simulator
@@ -11,6 +12,8 @@ class C:
     YELLOW = "\033[93m"
     BLUE = "\033[94m"
     RESET = "\033[0m"
+
+print(f'{C.BLUE}{sys.version}{C.RESET}')
 
 t1 = simulator.tank(80, 90, 1, 30)
 sp1 = simulator.setpoint(100, 100)
@@ -33,13 +36,13 @@ while True:
     if msvcrt.kbhit():
         key = msvcrt.getwch()
         if key in ('a', 'A'):
-            MQTT.send("cmd/ack", '1')
+            MQTT.send("cmd/ack", 'ACK REQUESTED')
 
         if key in ('s', 'S'):
-            MQTT.send("cmd/start", '1')
+            MQTT.send("cmd/start", 'START REQUESTED')
 
         if key in ('b', 'B'):
-            MQTT.send("cmd/stop", '1')
+            MQTT.send("cmd/stop", 'STOP REQUESTED')
 
     if MQTT.take_ack():
         controller.ack()
@@ -59,4 +62,18 @@ while True:
         MQTT.send("tank/level", new_level) ## отправляем наружу
         MQTT.send("tank/temp", new_temp)
 
-        print(f'{sec} секунд, {new_level} мм, {new_temp} C')
+        if new_level > old_level:
+            Lcolor = C.GREEN
+        elif new_level < old_level:
+            Lcolor = C.RED
+        else:
+            Lcolor = C.YELLOW
+
+        if new_temp > old_temp:
+            Tcolor = C.GREEN
+        elif new_temp < old_temp:
+            Tcolor = C.RED
+        else:
+            Tcolor = C.YELLOW
+
+        print(f'{sec} секунд, {Lcolor}{new_level}{C.RESET} мм, {Tcolor}{new_temp}{C.RESET} C')

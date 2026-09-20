@@ -1,23 +1,4 @@
-import sys
-import time
-
-
-class C:
-    RED = "\033[91m"
-    GREEN = "\033[92m"
-    YELLOW = "\033[93m"
-    BLUE = "\033[94m"
-    RESET = "\033[0m"
-
-print(f'{C.BLUE}{sys.version}{C.RESET}')
-# print(f'{C.BLUE}Simulator{C.RESET}')
-# print()
-
-
-# class node:
-#     def __init__(self,x,y):
-#         self.x = x
-#         self.y = y
+## Simulator
 
 class setpoint:
     def __init__(self, esteemated_level=-1, esteemated_temp=-1):
@@ -112,42 +93,3 @@ class tank:
         if self.temp >= 100:
             self.temp = 100
         ## конец пост логика
-
-
-# t1 = tank(8, 20,30)
-
-# print(f'is valid? {t1.is_valid()}')
-# print(f'is empty? {t1.is_empty()}')
-# print(f'{t1.temp} градусов')
-# print(f'{t1.level} мм')
-# print(f'{t1.temp} градусов')
-
-
-# tick = 0
-# start = time.monotonic()
-
-#пред логика
-# t1.pump = True
-# while(True):
-#     tick += 1
-#     sec = tick//t1.tickrate
-#     target = start + tick * t1.DT
-    ## alarm catch
-    # t1.alert() ## не его собачье дело
-
-    #логика управления
-    # if sec == 6:
-    #     t1.pump = False
-    #     t1.heater = True
-    #
-    # if sec == 10:
-    #     t1.heater = False
-    #     t1.drain = True
-    ## логика
-    # t1.update(t1.DT, 18)
-    ## отсчитываем каждый тик 60 тиков в секунду
-    # now = time.monotonic()
-    # if target > now:
-    #     time.sleep(target-now)
-    # if tick % 60 == 0:
-    #     print(f'{sec} секунд, {t1.level} мм, {t1.temp} градусов')
