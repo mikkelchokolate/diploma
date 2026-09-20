@@ -1,9 +1,9 @@
 ## Simulator
 
 class setpoint:
-    def __init__(self, esteemated_level=-1, esteemated_temp=-1):
-        self.esteemated_level = esteemated_level
-        self.esteemated_temp = esteemated_temp
+    def __init__(self, estimated_level=-1, estimated_temp=-1):
+        self.estimated_level = estimated_level
+        self.estimated_temp = estimated_temp
 
 
 class tank:

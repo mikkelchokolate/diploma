@@ -49,13 +49,13 @@ def step(tank, sp):
 
     if current == Mode.AUTO:
         # регулировка уровня
-        if tank.level < sp.esteemated_level:
+        if tank.level < sp.estimated_level:
             tank.pump = True
         else:
             tank.pump = False
 
         # регулировка температуры
-        if tank.temp < sp.esteemated_temp and not tank.is_empty():
+        if tank.temp < sp.estimated_temp and not tank.is_empty():
             tank.heater = True
         else:
             tank.heater = False
