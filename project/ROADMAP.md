@@ -26,7 +26,7 @@ FIRST STEP:
 Теги:
 
 tank.level, tank.temp
-sp.level, sp.temp
+sp.level, sp.temp (setpoint)
 pump.run, heater.run, mixer.run (мешалку можно заглушкой)
 valve_in.open, valve_out.open (второй клапан можно позже)
 cmd.start, cmd.stop, cmd.ack

@@ -13,3 +13,9 @@
 
 ядро SCADA и учебные узлы
 стек: python, postgresql, mqtt, fastapi, grafans, ts, htmx
+
+
+
+
+
+Клавиатура: S пуск, B стоп, A квитирование.

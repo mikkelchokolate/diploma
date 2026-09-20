@@ -19,10 +19,13 @@ print(f'{C.BLUE}{sys.version}{C.RESET}')
 #         self.x = x
 #         self.y = y
 
+class setpoint:
+    def __init__(self, esteemated_level=-1, esteemated_temp=-1):
+        self.esteemated_level = esteemated_level
+        self.esteemated_temp = esteemated_temp
+
 
 class tank:
-    alarm_flag = False
-
     pump: bool
     heater: bool
     drain: bool
@@ -35,7 +38,7 @@ class tank:
     drain_speed = 0.7
     pumping_speed = 0.8
 
-    def __init__(self, level=-1, maxlevel = -1, overflowlevel = -1, esteemated_level = -1, temp=-1, esteemated_temp = -1):
+    def __init__(self, level=-1, maxlevel = -1, overflowlevel = -1, temp=-1):
         # включение
         self.pump = False
         self.heater = False
@@ -43,10 +46,8 @@ class tank:
 
         self.level = level                       # мм
         self.maxlevel = maxlevel                 # мм
-        self.overflowlevel = overflowlevel       # мм
-        self.esteemated_level = esteemated_level # мм
+        self.overflowlevel = overflowlevel
         self.temp = temp                         # градусы C
-        self.esteemated_temp = esteemated_temp  # градусы C
 
 
 
@@ -111,12 +112,6 @@ class tank:
         if self.temp >= 100:
             self.temp = 100
         ## конец пост логика
-
-    # def alert(self):
-    #     if self.temp >= 100:
-    #         self.heater = False
-    def ack(self):
-        self.alarm_flag = False
 
 
 # t1 = tank(8, 20,30)
